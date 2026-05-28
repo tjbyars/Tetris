@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Tetris"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="MainFont">Assets/#AtmaSemiBold</FontFamily>
     </Application.Resources>
 </Application>
