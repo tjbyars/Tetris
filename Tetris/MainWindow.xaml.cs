@@ -1,15 +1,8 @@
-﻿using System.Data;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Tetris
 {
@@ -79,7 +72,7 @@ namespace Tetris
 
         private void DrawGrid(GameGrid grid)
         {
-            for (int r = 0; r <= grid.Rows; r++)
+            for (int r = 0; r < grid.Rows; r++)
             {
                 for (int c = 0; c < grid.Columns; c++)
                 {
@@ -105,7 +98,39 @@ namespace Tetris
 
         private void Window_KeyDown(object sender, KeyEventArgs e) 
         {
+            if (gameState.GameOver)
+            {
+                return;
+            }
 
+            switch (e.Key)
+            {
+                // Move block around
+                case Key.A:
+                case Key.Left:
+                    gameState.MoveBlockLeft();
+                    break;
+                case Key.D:
+                case Key.Right:
+                    gameState.MoveBlockRight();
+                    break;
+                case Key.S:
+                case Key.Down:
+                    gameState.MoveBlockDown();
+                    break;
+
+                // Rotate block
+                case Key.J:
+                    gameState.RotateBlockCCW();
+                    break;
+                case Key.L:
+                    gameState.RotateBlockCW();
+                    break;
+                default:
+                    return;
+            }
+
+            Draw(gameState);
         }
 
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
